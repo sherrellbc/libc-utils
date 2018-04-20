@@ -2,8 +2,9 @@
 #define _PORT_H
 
 
-#define PORT_PUTCHAR(c)     x(c)
-#define PORT_PUTS(str)      x(str)
+/* A list of functions that are expected to be defined by the platform */
+char port_putchar(char c);
+int port_puts(const char *str);
 
 
 #endif /* _PORT_H */

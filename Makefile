@@ -20,8 +20,10 @@ LIBC_OBJS =\
     $(LIBC_LOCALDIR)/stdio/puts.o \
     $(LIBC_LOCALDIR)/stdio/snprintf.o \
 
-LIBC_CLEAN_OBJS = $(LIBC_OBJS) $(LIBC_LOCALDIR)/libc.a
+LIB_OBJS += $(LIBC_OBJS) $(addsuffix .d, $(basename $(LIBC_OBJS))) $(LIBC_LOCALDIR)/libc-utils.a
 
-libc: $(LIBC_OBJS)
-	@echo "\nBuilding $@"
-	$(AR) rcs $(LIBC_LOCALDIR)/$@.a $(LIBC_OBJS)
+libc_prebuild:
+	@echo "\nBuilding $@.a"
+
+libc-utils: libc_prebuild $(LIBC_OBJS)
+	$(AR) rcs $(LIBC_LOCALDIR)/libc.a $(LIBC_OBJS)

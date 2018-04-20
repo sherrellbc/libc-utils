@@ -3,5 +3,5 @@
 
 int puts(const char *str)
 {
-    return PORT_PUTS(str);
+    return port_puts(str);
 }
