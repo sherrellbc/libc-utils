@@ -1,0 +1,27 @@
+LIBC_LOCALDIR:=$(dir $(lastword $(MAKEFILE_LIST)))
+
+#CC      = gcc -std=c99
+#CFLAGS  ?= -m32 -ffreestanding -nostartfiles -nostdlib -Wall -Wextra -Werror -Iinclude/
+#LDFLAGS ?= -nostdlib
+
+# Define build objects, include architecture-specific ones
+LIBC_OBJS =\
+    $(LIBC_LOCALDIR)/string/strncmp.o \
+    $(LIBC_LOCALDIR)/string/strncpy.o \
+    $(LIBC_LOCALDIR)/string/strlen.o \
+    $(LIBC_LOCALDIR)/string/memcmp.o \
+    $(LIBC_LOCALDIR)/string/memcpy.o \
+    $(LIBC_LOCALDIR)/string/memmove.o \
+    $(LIBC_LOCALDIR)/string/memset.o \
+    $(LIBC_LOCALDIR)/string/strrev.o \
+    $(LIBC_LOCALDIR)/stdlib/abort.o  \
+    $(LIBC_LOCALDIR)/stdlib/itoa.o  \
+    $(LIBC_LOCALDIR)/stdio/putchar.o \
+    $(LIBC_LOCALDIR)/stdio/puts.o \
+    $(LIBC_LOCALDIR)/stdio/snprintf.o \
+
+LIBC_CLEAN_OBJS = $(LIBC_OBJS) $(LIBC_LOCALDIR)/libc.a
+
+libc: $(LIBC_OBJS)
+	@echo "\nBuilding $@"
+	$(AR) rcs $(LIBC_LOCALDIR)/$@.a $(LIBC_OBJS)
