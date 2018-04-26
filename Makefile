@@ -23,7 +23,10 @@ LIBC_OBJS =\
 LIB_OBJS += $(LIBC_OBJS) $(addsuffix .d, $(basename $(LIBC_OBJS))) $(LIBC_LOCALDIR)/libc-utils.a
 
 libc_prebuild:
-	@echo "\nBuilding $@.a"
+	@echo "\nBuilding libc"
+
+$(LIBC_OBJS):
+	$(CC) -m32 $(CFLAGS) $(LDFLAGS) $(basename $@).c -c -o $@
 
 libc-utils: libc_prebuild $(LIBC_OBJS)
 	$(AR) rcs $(LIBC_LOCALDIR)/libc.a $(LIBC_OBJS)
